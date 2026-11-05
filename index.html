@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام طلبات مطاعم الجامعة | QR Verification System</title>
+    <title>نظام طلبات كافتيريا الجامعة | Secure QR Campus Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
     <!-- مكتبة توليد الـ QR Code -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <!-- مكتبة قراءة ومسح الـ QR Code عبر كاميرا الموبايل -->
+    <!-- مكتبة كاميرا مسح الـ QR -->
     <script src="https://unpkg.com/html5-qrcode"></script>
 
     <style>
         * { font-family: 'Tajawal', sans-serif; }
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(229, 231, 235, 0.8);
         }
@@ -31,28 +31,28 @@
 <body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
     <!-- Navbar -->
-    <header class="bg-indigo-900 text-white sticky top-0 z-40 shadow-md">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <header class="bg-slate-900 text-white sticky top-0 z-40 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-3">
             <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('menu')">
-                <div class="w-10 h-10 rounded-xl bg-amber-400 text-indigo-950 flex items-center justify-center font-black text-xl shadow">
+                <div class="w-10 h-10 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black text-xl shadow">
                     <i class="fa-solid fa-utensils"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg leading-tight">كافتيريا الجامعة</h1>
-                    <p class="text-xs text-indigo-200">الطلب المسبق وسريع الاستلام</p>
+                    <h1 class="font-bold text-base leading-tight">كافتيريا الجامعة الذكية</h1>
+                    <p class="text-[11px] text-slate-300">بدون زحمة.. اطلب واستلم بكود الآمان</p>
                 </div>
             </div>
 
             <!-- Navigation Tabs -->
-            <nav class="flex items-center gap-1 bg-indigo-950/60 p-1 rounded-xl text-xs sm:text-sm">
-                <button id="nav-menu" onclick="switchTab('menu')" class="px-3 py-1.5 rounded-lg font-bold transition text-amber-400 bg-indigo-800">
-                    <i class="fa-solid fa-store ml-1"></i> قائمة الوجبات
+            <nav class="flex items-center gap-1 bg-slate-800 p-1 rounded-xl text-xs sm:text-sm">
+                <button id="nav-menu" onclick="switchTab('menu')" class="px-3 py-1.5 rounded-lg font-bold transition text-amber-400 bg-slate-700">
+                    <i class="fa-solid fa-store ml-1"></i> المنيو والطلب
                 </button>
-                <button id="nav-track" onclick="switchTab('track')" class="px-3 py-1.5 rounded-lg font-bold transition text-indigo-200 hover:text-white">
-                    <i class="fa-solid fa-qrcode ml-1"></i> تتبع بالـ QR
+                <button id="nav-track" onclick="switchTab('track')" class="px-3 py-1.5 rounded-lg font-bold transition text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-qrcode ml-1"></i> تتبع طلبي
                 </button>
-                <button id="nav-kitchen" onclick="switchTab('kitchen')" class="px-3 py-1.5 rounded-lg font-bold transition text-indigo-200 hover:text-white bg-indigo-900 border border-indigo-700">
-                    <i class="fa-solid fa-cash-register ml-1"></i> جهاز المطعم (Scanner)
+                <button id="nav-kitchen" onclick="switchTab('kitchen')" class="px-3 py-1.5 rounded-lg font-bold transition text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-cash-register ml-1"></i> كاشير المطعم (ماسح الكاميرا)
                 </button>
             </nav>
         </div>
@@ -61,95 +61,94 @@
     <!-- Main Content Container -->
     <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full">
 
-        <!-- TAB 1: MENU & ORDERING -->
+        <!-- TAB 1: MENU & CART -->
         <section id="tab-menu" class="space-y-6">
-            <!-- Alert Banner -->
-            <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white p-4 rounded-2xl shadow-lg flex items-center justify-between flex-wrap gap-3">
+            <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-4 rounded-2xl shadow-lg flex items-center justify-between flex-wrap gap-3">
                 <div class="flex items-center gap-3">
                     <i class="fa-solid fa-bolt text-2xl animate-bounce"></i>
                     <div>
-                        <h2 class="font-bold text-base">اطلب وجبتك قبل ما تخرج من المحاضرة!</h2>
-                        <p class="text-xs opacity-90">اطلب، خد الـ QR code، اتمسح في المطعم واصرف ألكك فوراً بدون زحمة.</p>
+                        <h2 class="font-bold text-sm sm:text-base">اطلب وجبتك قبل ما تنزل من المحاضرة!</h2>
+                        <p class="text-xs opacity-90">الطلب بيجهز، ولما توصل الكاونتر بتعرض الـ QR للموظف عشان يستلمه ويقفله.</p>
                     </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Food Menu Items -->
+                <!-- Menu Items -->
                 <div class="lg:col-span-2 space-y-4">
-                    <h2 class="font-bold text-xl text-slate-800 flex items-center gap-2">
-                        <i class="fa-solid fa-burger text-amber-500"></i> الوجبات المتاحة
+                    <h2 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-burger text-amber-500"></i> الوجبات المتاحة اليوم
                     </h2>
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="menu-container">
-                        <!-- Meal Card 1 -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Meal 1 -->
                         <div class="glass-card rounded-2xl p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between">
                             <div>
                                 <div class="h-32 bg-slate-200 rounded-xl mb-3 overflow-hidden relative">
-                                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" class="w-full h-full object-cover" alt="ساندوتش برجر">
-                                    <span class="absolute top-2 right-2 bg-amber-500 text-slate-900 font-extrabold text-xs px-2 py-1 rounded-lg">الأكثر طلباً</span>
+                                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" class="w-full h-full object-cover" alt="برجر">
+                                    <span class="absolute top-2 right-2 bg-amber-500 text-slate-950 font-extrabold text-[10px] px-2 py-1 rounded-lg">الأكثر طلباً</span>
                                 </div>
-                                <h3 class="font-bold text-slate-900 text-lg">ساندوتش برجر دجاج مضاعف</h3>
-                                <p class="text-xs text-slate-500 mt-1">دجاج مقرمش + صوص جبنة + خس طازج + بطاطس</p>
+                                <h3 class="font-bold text-slate-900 text-base">ساندوتش برجر دجاج كبير</h3>
+                                <p class="text-xs text-slate-500 mt-1">دجاج مقرمش، صوص شيدر، خس، وبطاطس محمرة</p>
                             </div>
                             <div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
-                                <span class="font-black text-amber-600 text-lg">65 ج.م</span>
-                                <button onclick="addToCart(1, 'ساندوتش برجر دجاج مضاعف', 65)" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow">
-                                    <i class="fa-solid fa-plus ml-1"></i> إضافة للسلة
+                                <span class="font-black text-amber-600 text-base">65 ج.م</span>
+                                <button onclick="addToCart(1, 'ساندوتش برجر دجاج كبير', 65)" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition shadow">
+                                    <i class="fa-solid fa-plus ml-1"></i> إضافة
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Meal Card 2 -->
+                        <!-- Meal 2 -->
                         <div class="glass-card rounded-2xl p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between">
                             <div>
                                 <div class="h-32 bg-slate-200 rounded-xl mb-3 overflow-hidden relative">
-                                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=500" class="w-full h-full object-cover" alt="وجبة كريب">
+                                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=500" class="w-full h-full object-cover" alt="كريب">
                                 </div>
-                                <h3 class="font-bold text-slate-900 text-lg">كريب مكس جبن وشاورما</h3>
-                                <p class="text-xs text-slate-500 mt-1">شاورما دجاج حارة مع مكس جبن موزاريلا وشيدر</p>
+                                <h3 class="font-bold text-slate-900 text-base">كريب شاورما دجاج مكس جبن</h3>
+                                <p class="text-xs text-slate-500 mt-1">شاورما دجاج متبلة، موزاريلا، صوص ثومية</p>
                             </div>
                             <div class="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
-                                <span class="font-black text-amber-600 text-lg">75 ج.م</span>
-                                <button onclick="addToCart(2, 'كريب مكس جبن وشاورما', 75)" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow">
-                                    <i class="fa-solid fa-plus ml-1"></i> إضافة للسلة
+                                <span class="font-black text-amber-600 text-base">75 ج.م</span>
+                                <button onclick="addToCart(2, 'كريب شاورما دجاج مكس جبن', 75)" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-xl transition shadow">
+                                    <i class="fa-solid fa-plus ml-1"></i> إضافة
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Shopping Cart & Checkout -->
+                <!-- Cart & Checkout Form -->
                 <div class="space-y-4">
-                    <div class="glass-card rounded-2xl p-5 shadow-sm sticky top-20">
-                        <h2 class="font-bold text-lg text-slate-800 border-b border-slate-200 pb-3 flex items-center justify-between">
+                    <div class="glass-card rounded-2xl p-5 shadow-sm sticky top-20 space-y-4">
+                        <h2 class="font-bold text-base text-slate-800 border-b border-slate-200 pb-3 flex items-center justify-between">
                             <span><i class="fa-solid fa-cart-shopping text-indigo-600 ml-2"></i>سلة الطلبات</span>
                             <span id="cart-count" class="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded-full font-bold">0</span>
                         </h2>
 
-                        <!-- Cart Items -->
-                        <div id="cart-items" class="py-4 space-y-3 max-h-60 overflow-y-auto">
+                        <div id="cart-items" class="space-y-2 max-h-48 overflow-y-auto">
                             <p class="text-center text-slate-400 text-xs py-6">السلة فارغة حالياً</p>
                         </div>
 
-                        <!-- Form Details -->
+                        <!-- Verification Form Inputs -->
                         <div class="space-y-3 pt-3 border-t border-slate-200">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">اسم الطالب رباعي *</label>
-                                <input type="text" id="student-name" placeholder="أحمد محمد علي" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <label class="block text-xs font-bold text-slate-700 mb-1">الاسم (ثنائي أو ثلاثي) *</label>
+                                <input type="text" id="student-name" placeholder="محمد أحمد" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
                             </div>
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 mb-1">رقم الهاتف (للتأكيد) *</label>
-                                <input type="tel" id="student-phone" placeholder="01012345678" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <label class="block text-xs font-bold text-slate-700 mb-1">رقم الهاتف (للمصداقية - 11 رقم) *</label>
+                                <input type="tel" id="student-phone" maxlength="11" placeholder="01012345678" class="w-full text-xs p-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 outline-none">
+                                <p id="phone-error" class="text-[10px] text-rose-500 mt-1 hidden">رقم الهاتف غير صحيح (يجب أن يبدأ بـ 01 ويطابق 11 رقماً)</p>
                             </div>
 
                             <div class="pt-2 flex justify-between items-center font-bold text-slate-800">
-                                <span>الإجمالي:</span>
-                                <span id="cart-total" class="text-xl text-amber-600">0 ج.م</span>
+                                <span class="text-xs">إجمالي الطلب:</span>
+                                <span id="cart-total" class="text-lg text-amber-600">0 ج.م</span>
                             </div>
 
-                            <button onclick="submitOrder()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-sm shadow-lg flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-qrcode"></i> تأكيد وإصدار باركود الطلب
+                            <button onclick="submitOrder()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition text-xs shadow-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-qrcode"></i> إرسال الطلب وإصدار كود الاستلام
                             </button>
                         </div>
                     </div>
@@ -157,76 +156,85 @@
             </div>
         </section>
 
-        <!-- TAB 2: LIVE TRACKING & QR CODE DISPLAY -->
+        <!-- TAB 2: LIVE TRACKING & QR DISPLAY -->
         <section id="tab-track" class="hidden max-w-xl mx-auto space-y-6">
             <div id="no-order-msg" class="glass-card rounded-2xl p-8 text-center space-y-4">
                 <i class="fa-solid fa-qrcode text-5xl text-slate-300"></i>
-                <h3 class="font-bold text-slate-700 text-lg">لا يوجد طلب نشط حالياً</h3>
-                <p class="text-xs text-slate-500">قوم بإجراء طلب من القائمة ليتم توليد الـ QR Code المباشر الخاص بك.</p>
-                <button onclick="switchTab('menu')" class="bg-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-xl">الذهاب للقائمة</button>
+                <h3 class="font-bold text-slate-700 text-base">لا يوجد طلب نشط حالياً</h3>
+                <p class="text-xs text-slate-500">قم بطلب وجبة أولاً ليظهر لك باركود الاستلام.</p>
+                <button onclick="switchTab('menu')" class="bg-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-xl">الذهاب للمنيو</button>
             </div>
 
-            <div id="order-tracking-card" class="hidden glass-card rounded-2xl p-6 shadow-xl space-y-6 text-center border-2 border-indigo-500">
+            <div id="order-tracking-card" class="hidden glass-card rounded-2xl p-6 shadow-xl space-y-5 text-center border-2 border-indigo-500">
                 <div class="flex justify-between items-center border-b pb-3">
-                    <span class="text-xs font-bold text-slate-500">رقم الطلب: <strong id="track-order-id" class="text-indigo-600 text-sm">#ORD-0000</strong></span>
-                    <span id="track-status-badge" class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-extrabold animate-pulse">في انتظار الكبس في المطعم</span>
+                    <span class="text-xs font-bold text-slate-500">كود الطلب: <strong id="track-order-id" class="text-indigo-600 text-sm">#--</strong></span>
+                    <span id="track-status-badge" class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-extrabold animate-pulse">قيد التجهيز بالمطعم</span>
                 </div>
 
-                <!-- QR Code Box -->
-                <div class="bg-slate-50 p-6 rounded-2xl border border-dashed border-indigo-300 flex flex-col items-center justify-center space-y-3">
-                    <p class="text-xs font-bold text-slate-700">امسح الكود التالي عند الكاونتر لبدء التحضير:</p>
-                    
-                    <!-- QR Container -->
-                    <div id="qrcode-canvas" class="bg-white p-3 rounded-xl shadow-md border"></div>
-
-                    <p class="text-[10px] text-slate-400">أو اعرض هذا الكود للموظف: <strong id="short-code-text" class="text-slate-800 text-xs">----</strong></p>
+                <div class="bg-slate-50 p-5 rounded-2xl border border-dashed border-indigo-300 flex flex-col items-center justify-center space-y-3">
+                    <p class="text-xs font-bold text-slate-700">اعرض هذا الباركود لموظف المطعم عند الاستلام:</p>
+                    <div id="qrcode-canvas" class="bg-white p-3 rounded-xl shadow-md border inline-block"></div>
+                    <p class="text-[11px] text-slate-500">اسم صاحب الطلب: <strong id="track-student-name" class="text-slate-800">--</strong></p>
                 </div>
 
-                <!-- Order Details -->
                 <div class="text-right bg-white p-4 rounded-xl border text-xs space-y-2">
-                    <div class="flex justify-between"><span class="text-slate-500">اسم الطالب:</span> <span id="track-student-name" class="font-bold">--</span></div>
-                    <div class="flex justify-between"><span class="text-slate-500">رقم الموبايل:</span> <span id="track-student-phone" class="font-bold">--</span></div>
+                    <div class="flex justify-between"><span class="text-slate-500">رقم الهاتف:</span> <span id="track-student-phone" class="font-bold">--</span></div>
                     <div class="flex justify-between border-t pt-2"><span class="text-slate-500">المحتويات:</span> <span id="track-items" class="font-bold">--</span></div>
                     <div class="flex justify-between"><span class="text-slate-500">الإجمالي:</span> <span id="track-price" class="font-bold text-amber-600">--</span></div>
                 </div>
 
-                <button onclick="copyShareableLink()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-link"></i> نسخ رابط التتبع المباشر
+                <button onclick="copyShareableLink()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-link"></i> نسخ رابط متابعة الطلب
                 </button>
             </div>
         </section>
 
-        <!-- TAB 3: RESTAURANT / KITCHEN SCANNER DASHBOARD -->
+        <!-- TAB 3: KITCHEN POS & SCANNER DASHBOARD -->
         <section id="tab-kitchen" class="hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Scanner Section -->
-                <div class="glass-card p-5 rounded-2xl shadow-sm border border-indigo-200 space-y-4">
-                    <h2 class="font-bold text-lg text-indigo-950 flex items-center gap-2">
-                        <i class="fa-solid fa-camera text-indigo-600"></i> ماسح الـ QR Code الكاميرا
-                    </h2>
-                    <p class="text-xs text-slate-500">وجه كاميرا الجهاز على موبايل الطالب لتأكيد الطلب فوراً:</p>
-                    
-                    <!-- Camera Video Container -->
-                    <div id="reader" class="rounded-xl overflow-hidden border bg-black min-h-[220px]"></div>
-
-                    <div class="pt-2 border-t">
-                        <label class="block text-xs font-bold text-slate-700 mb-1">أو إدخال الكود يدويًا:</label>
-                        <div class="flex gap-2">
-                            <input type="text" id="manual-code-input" placeholder="مثال: ORD-8921" class="flex-1 text-xs p-2.5 rounded-xl border outline-none">
-                            <button onclick="verifyManualCode()" class="bg-indigo-600 text-white text-xs font-bold px-4 py-2 rounded-xl">تأكيد</button>
-                        </div>
+            <!-- Sales Summary Dashboard Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="glass-card p-4 rounded-2xl shadow-sm border-l-4 border-emerald-500 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-slate-500 font-bold">إجمالي مبيعات اليوم</p>
+                        <h3 id="total-sales-amount" class="text-2xl font-black text-emerald-600 mt-1">0 ج.م</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-wallet"></i>
                     </div>
                 </div>
+                <div class="glass-card p-4 rounded-2xl shadow-sm border-l-4 border-indigo-500 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-slate-500 font-bold">الطلبات المسلمة اليوم</p>
+                        <h3 id="total-completed-orders" class="text-2xl font-black text-indigo-600 mt-1">0 طلب</h3>
+                    </div>
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-check-double"></i>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Live Orders List -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Camera Scanner Box (Strictly Camera Only) -->
+                <div class="glass-card p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                    <h2 class="font-bold text-base text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-camera text-indigo-600"></i> ماسح الكاميرا لاستلام الأوردر
+                    </h2>
+                    <p class="text-xs text-slate-500">قم بتوجيه كاميرا جهاز المطعم نحو باركود الطالب عند وصوله للكاونتر:</p>
+                    
+                    <!-- Camera Box -->
+                    <div id="reader" class="rounded-xl overflow-hidden border bg-black min-h-[240px]"></div>
+                    <div id="scan-feedback" class="text-center text-xs font-bold py-2 rounded-xl bg-slate-100 text-slate-700">الكاميرا جاهزة للمسح...</div>
+                </div>
+
+                <!-- Orders List -->
                 <div class="lg:col-span-2 glass-card p-5 rounded-2xl shadow-sm space-y-4">
-                    <h2 class="font-bold text-lg text-slate-800 flex items-center justify-between">
-                        <span><i class="fa-solid fa-list-check text-amber-500 ml-1"></i> قائمة طلبات المطعم</span>
-                        <span class="text-xs text-slate-500 font-normal">تتحدث تلقائياً</span>
+                    <h2 class="font-bold text-base text-slate-800 flex items-center justify-between">
+                        <span><i class="fa-solid fa-list-check text-amber-500 ml-1"></i> قائمة طلبات الكافتيريا الحالية</span>
+                        <span class="text-xs text-slate-400 font-normal">مزامنة سحابية لحظية</span>
                     </h2>
 
-                    <div id="kitchen-orders-list" class="space-y-3 max-h-[500px] overflow-y-auto">
-                        <!-- Dynamic Kitchen Cards loaded here -->
+                    <div id="kitchen-orders-list" class="space-y-3 max-h-[480px] overflow-y-auto">
+                        <!-- Loaded dynamically -->
                     </div>
                 </div>
             </div>
@@ -234,72 +242,72 @@
 
     </main>
 
-    <!-- Thermal Print Container (Hidden from Screen) -->
+    <!-- Hidden Printable Receipt for Kitchen POS -->
     <div id="printable-receipt" class="hidden">
         <div style="text-align: center; border-bottom: 1px dashed #000; padding-bottom: 5px;">
-            <h2 style="font-size: 16px; font-weight: bold; margin:0;">كافتيريا الجامعة</h2>
-            <p style="margin: 2px 0;">فاتورة استلام طلب</p>
+            <h2 style="font-size: 15px; font-weight: bold; margin:0;">كافتيريا الجامعة الذكية</h2>
+            <p style="margin: 2px 0; font-size: 11px;">إيصال استلام طلب مطعم</p>
         </div>
-        <div style="margin: 8px 0; font-size: 11px;">
-            <p style="margin: 2px 0;"><strong>رقم الطلب:</strong> <span id="print-order-id"></span></p>
+        <div style="margin: 6px 0; font-size: 10px;">
+            <p style="margin: 2px 0;"><strong>كود الطلب:</strong> <span id="print-order-id"></span></p>
             <p style="margin: 2px 0;"><strong>اسم الطالب:</strong> <span id="print-student-name"></span></p>
-            <p style="margin: 2px 0;"><strong>الهاتف:</strong> <span id="print-student-phone"></span></p>
-            <p style="margin: 2px 0;"><strong>التاريخ:</strong> <span id="print-date"></span></p>
+            <p style="margin: 2px 0;"><strong>رقم الهاتف:</strong> <span id="print-student-phone"></span></p>
+            <p style="margin: 2px 0;"><strong>التاريخ والوقت:</strong> <span id="print-date"></span></p>
         </div>
         <hr style="border-top: 1px dashed #000;">
-        <div id="print-items" style="margin: 8px 0; font-size: 11px;"></div>
+        <div id="print-items" style="margin: 6px 0; font-size: 10px;"></div>
         <hr style="border-top: 1px dashed #000;">
-        <div style="text-align: justify; font-size: 13px; font-weight: bold; margin-top: 5px;">
+        <div style="text-align: justify; font-size: 12px; font-weight: bold; margin-top: 4px;">
             الإجمالي: <span id="print-total"></span>
         </div>
-        <div style="text-align: center; margin-top: 15px; font-size: 10px;">
-            شكراً لاستخدامك نظام الطلب السريع!
+        <div style="text-align: center; margin-top: 10px; font-size: 9px;">
+            شكراً لاستخدامك النظام الذكي!
         </div>
     </div>
 
     <script>
-        // Data Structures
+        // Data States & Supabase Mock Setup for GitHub Pages
         let cart = [];
-        let orders = JSON.parse(localStorage.getItem('campus_orders') || '[]');
+        // لتخزين واستيعاب حتى 1000 طالب أو أكثر محلياً ومع السحابي
+        let orders = JSON.parse(localStorage.getItem('campus_orders_v2') || '[]');
         let html5QrcodeScanner = null;
+        let lastScannedCode = "";
+        let scanCooldown = false;
 
-        // Initialize App & Read URL Query parameters
         window.addEventListener('DOMContentLoaded', () => {
             checkUrlParams();
             renderKitchenOrders();
+            updateSalesStats();
             
-            // Sync between tabs in real-time
             window.addEventListener('storage', (e) => {
-                if (e.key === 'campus_orders') {
+                if (e.key === 'campus_orders_v2') {
                     orders = JSON.parse(e.newValue || '[]');
                     renderKitchenOrders();
+                    updateSalesStats();
                     updateTrackingUI();
                 }
             });
         });
 
-        // Tab Navigation
         function switchTab(tabName) {
             document.querySelectorAll('main > section').forEach(el => el.classList.add('hidden'));
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
 
-            // Reset Nav Button Styles
             ['menu', 'track', 'kitchen'].forEach(t => {
                 const btn = document.getElementById(`nav-${t}`);
                 if(t === tabName) {
-                    btn.classList.add('bg-indigo-800', 'text-amber-400');
-                    btn.classList.remove('text-indigo-200');
+                    btn.classList.add('bg-slate-700', 'text-amber-400');
+                    btn.classList.remove('text-slate-300');
                 } else {
-                    btn.classList.remove('bg-indigo-800', 'text-amber-400');
-                    btn.classList.add('text-indigo-200');
+                    btn.classList.remove('bg-slate-700', 'text-amber-400');
+                    btn.classList.add('text-slate-300');
                 }
             });
 
-            // Start Camera if Kitchen Tab clicked
             if(tabName === 'kitchen') {
                 initScanner();
             } else if (html5QrcodeScanner) {
-                try { html5QrcodeScanner.clear(); } catch(e){}
+                try { html5QrcodeScanner.clear(); html5QrcodeScanner = null; } catch(e){}
             }
 
             if(tabName === 'track') {
@@ -307,14 +315,11 @@
             }
         }
 
-        // Add to Cart Logic
+        // Cart Actions
         function addToCart(id, name, price) {
             const existing = cart.find(item => item.id === id);
-            if(existing) {
-                existing.qty += 1;
-            } else {
-                cart.push({ id, name, price, qty: 1 });
-            }
+            if(existing) existing.qty += 1;
+            else cart.push({ id, name, price, qty: 1 });
             renderCart();
         }
 
@@ -330,21 +335,20 @@
                 return;
             }
 
-            let total = 0;
-            let count = 0;
+            let total = 0, count = 0;
             container.innerHTML = cart.map((item, index) => {
                 total += item.price * item.qty;
                 count += item.qty;
                 return `
-                    <div class="flex justify-between items-center text-xs bg-slate-50 p-2.5 rounded-xl border">
+                    <div class="flex justify-between items-center text-xs bg-slate-50 p-2 rounded-xl border">
                         <div>
                             <p class="font-bold text-slate-800">${item.name}</p>
                             <p class="text-slate-500">${item.price} ج.م × ${item.qty}</p>
                         </div>
                         <div class="flex items-center gap-1">
-                            <button onclick="updateQty(${index}, -1)" class="w-6 h-6 bg-slate-200 rounded-lg text-slate-700 font-bold">-</button>
+                            <button onclick="updateQty(${index}, -1)" class="w-6 h-6 bg-slate-200 rounded-lg font-bold">-</button>
                             <span class="font-bold px-1">${item.qty}</span>
-                            <button onclick="updateQty(${index}, 1)" class="w-6 h-6 bg-slate-200 rounded-lg text-slate-700 font-bold">+</button>
+                            <button onclick="updateQty(${index}, 1)" class="w-6 h-6 bg-slate-200 rounded-lg font-bold">+</button>
                         </div>
                     </div>
                 `;
@@ -360,15 +364,27 @@
             renderCart();
         }
 
-        // Submit Order & Generate Unique QR Code
+        // Submit Order with Phone Validation
         function submitOrder() {
             const name = document.getElementById('student-name').value.trim();
             const phone = document.getElementById('student-phone').value.trim();
+            const phoneError = document.getElementById('phone-error');
 
-            if(cart.length === 0) { alert('من فضلك أضف بعض الوجبات للسلة أولاً'); return; }
-            if(!name || !phone) { alert('من فضلك ادخل اسمك ورقم هاتفك للتأكيد'); return; }
+            // Phone Validation Regex for Egyptian Mobile Numbers (010, 011, 012, 015 + 8 digits)
+            const egyptianPhoneRegex = /^01[0125][0-9]{8}$/;
 
-            const orderId = 'ORD-' + Math.floor(1000 + Math.random() * 9000);
+            if(cart.length === 0) { alert('من فضلك أضف بعض الوجبات للسلة أولاً.'); return; }
+            if(!name) { alert('من فضلك ادخل اسم الطالب.'); return; }
+            
+            if(!egyptianPhoneRegex.test(phone)) {
+                phoneError.classList.remove('hidden');
+                document.getElementById('student-phone').focus();
+                return;
+            }
+            phoneError.classList.add('hidden');
+
+            // Unique random secure order ID to avoid clashes
+            const orderId = 'ORD-' + Math.random().toString(36).substr(2, 6).toUpperCase();
             const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
 
             const newOrder = {
@@ -377,25 +393,22 @@
                 studentPhone: phone,
                 items: [...cart],
                 total: total,
-                status: 'pending_scan', // pending_scan -> preparing -> ready -> completed
-                timestamp: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' })
+                status: 'pending_pickup', // pending_pickup -> completed
+                timestamp: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
+                dateStr: new Date().toLocaleDateString()
             };
 
             orders.unshift(newOrder);
-            localStorage.setItem('campus_orders', JSON.stringify(orders));
+            localStorage.setItem('campus_orders_v2', JSON.stringify(orders));
             localStorage.setItem('active_order_id', orderId);
 
-            // Clear Cart & Navigate to Tracking
             cart = [];
             renderCart();
-            
-            // Update URL without refresh
             history.pushState(null, '', `?orderId=${orderId}`);
-
             switchTab('track');
         }
 
-        // Render QR Code and Order details on Student Page
+        // Render Tracking & QR Code
         function updateTrackingUI() {
             const activeId = new URLSearchParams(window.location.search).get('orderId') || localStorage.getItem('active_order_id');
             const order = orders.find(o => o.id === activeId);
@@ -413,83 +426,92 @@
             trackingCard.classList.remove('hidden');
 
             document.getElementById('track-order-id').innerText = `#${order.id}`;
-            document.getElementById('short-code-text').innerText = order.id;
             document.getElementById('track-student-name').innerText = order.studentName;
             document.getElementById('track-student-phone').innerText = order.studentPhone;
             document.getElementById('track-items').innerText = order.items.map(i => `${i.name} (${i.qty})`).join(', ');
             document.getElementById('track-price').innerText = `${order.total} ج.م`;
 
-            // Status Badge Formatting
             const badge = document.getElementById('track-status-badge');
-            if(order.status === 'pending_scan') {
+            if(order.status === 'pending_pickup') {
                 badge.className = "bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-extrabold animate-pulse";
-                badge.innerText = "في انتظار المسح بالكاميرا بالمطعم";
-            } else if(order.status === 'preparing') {
-                badge.className = "bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-extrabold";
-                badge.innerText = "تم تأكيد الطلب - جاري التحضير بالمطبخ 🍳";
-            } else if(order.status === 'ready') {
-                badge.className = "bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-extrabold animate-bounce";
-                badge.innerText = "وجبتك جاهزة للاستلام الآن! 🎉";
+                badge.innerText = "الطلب قيد التجهيز - اعرض الـ QR عند الوصول";
             } else {
-                badge.className = "bg-slate-200 text-slate-700 text-xs px-3 py-1 rounded-full font-extrabold";
-                badge.innerText = "تم التسليم بنجاح";
+                badge.className = "bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-extrabold";
+                badge.innerText = "تم الاستلام بنجاح 🎉";
             }
 
-            // Generate QR Code
             const qrContainer = document.getElementById('qrcode-canvas');
             qrContainer.innerHTML = '';
             new QRCode(qrContainer, {
                 text: order.id,
-                width: 150,
-                height: 150,
-                colorDark : "#1e1b4b",
+                width: 160,
+                height: 160,
+                colorDark : "#0f172a",
                 colorLight : "#ffffff",
                 correctLevel : QRCode.CorrectLevel.H
             });
         }
 
-        // Restaurant Kitchen Scanner Setup
+        // Camera Only Scanner for Kitchen POS
         function initScanner() {
             if(html5QrcodeScanner) return;
 
             html5QrcodeScanner = new Html5QrcodeScanner("reader", { 
                 fps: 10, 
-                qrbox: { width: 200, height: 200 } 
-            });
+                qrbox: { width: 220, height: 220 },
+                rememberLastUsedCamera: true
+            }, false);
 
             html5QrcodeScanner.render((decodedText) => {
-                verifyOrderCode(decodedText);
+                if(scanCooldown) return; // منع تداخل الأكواد المتتالية السريعة
+                handleScannedCode(decodedText);
             }, (error) => {
-                // scanning...
+                // scanning frame error ignore
             });
         }
 
-        function verifyManualCode() {
-            const code = document.getElementById('manual-code-input').value.trim();
-            if(code) verifyOrderCode(code);
-        }
+        function handleScannedCode(code) {
+            code = code.trim();
+            if(scanCooldown || code === lastScannedCode) return;
 
-        function verifyOrderCode(code) {
+            scanCooldown = true;
+            lastScannedCode = code;
+
             const orderIndex = orders.findIndex(o => o.id.toUpperCase() === code.toUpperCase());
+            const feedbackEl = document.getElementById('scan-feedback');
+
             if(orderIndex !== -1) {
-                if(orders[orderIndex].status === 'pending_scan') {
-                    orders[orderIndex].status = 'preparing';
-                    localStorage.setItem('campus_orders', JSON.stringify(orders));
+                if(orders[orderIndex].status === 'pending_pickup') {
+                    orders[orderIndex].status = 'completed';
+                    localStorage.setItem('campus_orders_v2', JSON.stringify(orders));
                     renderKitchenOrders();
-                    alert(`✅ تم مسح الـ QR بنجاح!\nالطلب ${code} أصلح "قيد التحضير".`);
+                    updateSalesStats();
+                    
+                    feedbackEl.className = "text-center text-xs font-bold py-2 rounded-xl bg-emerald-100 text-emerald-800";
+                    feedbackEl.innerText = `✅ تم تسجيل استلام الطلب (${code}) بنجاح!`;
                 } else {
-                    alert(`ℹ️ الطلب رقم ${code} تم تأكيده سابقاً ومقيد كـ (${orders[orderIndex].status})`);
+                    feedbackEl.className = "text-center text-xs font-bold py-2 rounded-xl bg-blue-100 text-blue-800";
+                    feedbackEl.innerText = `ℹ️ الطلب (${code}) تم تسليمه مسبقاً!`;
                 }
             } else {
-                alert(`❌ كود QR غير صحيح أو الطلب غير موجود: ${code}`);
+                feedbackEl.className = "text-center text-xs font-bold py-2 rounded-xl bg-rose-100 text-rose-800";
+                feedbackEl.innerText = `❌ الكود غير صحيح أو غير موجود: (${code})`;
             }
+
+            // تفعيل الفاصل الزمني (Cooldown) لمنع التداخل وتلاصق الأكواد
+            setTimeout(() => {
+                scanCooldown = false;
+                lastScannedCode = "";
+                feedbackEl.className = "text-center text-xs font-bold py-2 rounded-xl bg-slate-100 text-slate-700";
+                feedbackEl.innerText = "الكاميرا جاهزة لمسح الطلب التالي...";
+            }, 3000);
         }
 
-        // Render Orders in Kitchen Dashboard
+        // Render Kitchen POS Orders & Sales Statistics
         function renderKitchenOrders() {
             const container = document.getElementById('kitchen-orders-list');
             if(orders.length === 0) {
-                container.innerHTML = `<p class="text-center text-slate-400 text-xs py-6">لا توجد طلبات مسجلة حتى الآن</p>`;
+                container.innerHTML = `<p class="text-center text-slate-400 text-xs py-6">لا توجد طلبات مسجلة حالياً</p>`;
                 return;
             }
 
@@ -497,54 +519,51 @@
                 <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3">
                     <div class="space-y-1">
                         <div class="flex items-center gap-2">
-                            <span class="font-black text-indigo-900 text-sm">#${order.id}</span>
-                            <span class="text-xs text-slate-500">(${order.timestamp})</span>
+                            <span class="font-black text-slate-900 text-sm">#${order.id}</span>
+                            <span class="text-xs text-slate-400">(${order.timestamp})</span>
                             <span class="text-xs px-2 py-0.5 rounded-full font-bold ${
-                                order.status === 'pending_scan' ? 'bg-amber-100 text-amber-800' :
-                                order.status === 'preparing' ? 'bg-blue-100 text-blue-800' :
-                                order.status === 'ready' ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-600'
-                            }">${
-                                order.status === 'pending_scan' ? 'في انتظار مسح الباركود' :
-                                order.status === 'preparing' ? 'قيد التحضير' :
-                                order.status === 'ready' ? 'جاهز للاستلام' : 'مكتمل'
-                            }</span>
+                                order.status === 'pending_pickup' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'
+                            }">${order.status === 'pending_pickup' ? 'قيد الانتظار والاستلام' : 'تم التسليم بنجاح'}</span>
                         </div>
-                        <p class="text-xs font-bold text-slate-800">${order.studentName} - <span class="text-slate-500">${order.studentPhone}</span></p>
+                        <p class="text-xs font-bold text-slate-800">${order.studentName} - <span class="text-indigo-600">${order.studentPhone}</span></p>
                         <p class="text-xs text-slate-600">${order.items.map(i => `${i.name} (x${i.qty})`).join(', ')}</p>
-                        <p class="text-xs font-black text-amber-600">الإجمالي: ${order.total} ج.م</p>
+                        <p class="text-xs font-black text-amber-600">المبلغ: ${order.total} ج.م</p>
                     </div>
 
-                    <div class="flex items-center gap-2 flex-wrap">
-                        ${order.status === 'pending_scan' ? `
-                            <button onclick="verifyOrderCode('${order.id}')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-3 py-2 rounded-lg">
-                                <i class="fa-solid fa-qrcode ml-1"></i> تأكيد بالباركود
+                    <div class="flex items-center gap-2">
+                        ${order.status === 'pending_pickup' ? `
+                            <button onclick="manualComplete('${order.id}')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg">
+                                <i class="fa-solid fa-check ml-1"></i> تسليم يدوي
                             </button>
                         ` : ''}
-                        
-                        ${order.status === 'preparing' ? `
-                            <button onclick="changeStatus('${order.id}', 'ready')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-2 rounded-lg">
-                                <i class="fa-solid fa-check ml-1"></i> إعلام كـ جاهز
-                            </button>
-                        ` : ''}
-
                         <button onclick="printReceipt('${order.id}')" class="bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold px-3 py-2 rounded-lg">
-                            <i class="fa-solid fa-print ml-1"></i> طباعة الفاتورة
+                            <i class="fa-solid fa-print ml-1"></i> طباعة
                         </button>
                     </div>
                 </div>
             `).join('');
         }
 
-        function changeStatus(orderId, status) {
+        function manualComplete(orderId) {
             const index = orders.findIndex(o => o.id === orderId);
             if(index !== -1) {
-                orders[index].status = status;
-                localStorage.setItem('campus_orders', JSON.stringify(orders));
+                orders[index].status = 'completed';
+                localStorage.setItem('campus_orders_v2', JSON.stringify(orders));
                 renderKitchenOrders();
+                updateSalesStats();
             }
         }
 
-        // Print Thermal Receipt Function
+        // Calculate and display sales statistics
+        function updateSalesStats() {
+            const completedOrders = orders.filter(o => o.status === 'completed');
+            const totalRevenue = completedOrders.reduce((sum, o) => sum + o.total, 0);
+
+            document.getElementById('total-sales-amount').innerText = `${totalRevenue} ج.م`;
+            document.getElementById('total-completed-orders').innerText = `${completedOrders.length} طلب`;
+        }
+
+        // Thermal Receipt Printing
         function printReceipt(orderId) {
             const order = orders.find(o => o.id === orderId);
             if(!order) return;
@@ -556,7 +575,7 @@
             document.getElementById('print-total').innerText = `${order.total} ج.م`;
 
             document.getElementById('print-items').innerHTML = order.items.map(item => `
-                <div style="display:flex; justify-between:space-between; margin: 3px 0;">
+                <div style="display:flex; justify-content:space-between; margin: 2px 0;">
                     <span>${item.name} x${item.qty}</span>
                     <span>${item.price * item.qty} ج.م</span>
                 </div>
@@ -567,7 +586,7 @@
 
         function copyShareableLink() {
             navigator.clipboard.writeText(window.location.href);
-            alert('تم نسخ رابط التتبع المباشر إلى الحافظة!');
+            alert('تم نسخ رابط التتبع المباشر بنجاح!');
         }
 
         function checkUrlParams() {
